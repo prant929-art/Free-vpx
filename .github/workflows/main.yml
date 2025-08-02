@@ -1,0 +1,44 @@
+name: TOOLBOXLAP
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Start Building...
+    runs-on: windows-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout repository files
+        uses: actions/checkout@v4
+
+      - name: Run Downloads.bat (Install essentials)
+        run: |
+          if exist Downloads.bat (
+            echo "Running Downloads.bat..."
+            cmd /c Downloads.bat
+          ) else (
+            echo "Downloads.bat not found!" && exit 1
+          )
+        shell: cmd
+
+      - name: Run show.bat (Show Website)
+        run: |
+          if exist show.bat (
+            echo "Running show.bat..."
+            cmd /c show.bat
+          ) else (
+            echo "show.bat not found!" && exit 1
+          )
+        shell: cmd
+
+      - name: Run loop.bat (Time Counter)
+        run: |
+          if exist loop.bat (
+            echo "Running loop.bat..."
+            cmd /c loop.bat
+          ) else (
+            echo "loop.bat not found!" && exit 1
+          )
+        shell: cmd
